@@ -1,24 +1,42 @@
-# -*- ruby -*-
+# encoding: UTF-8
+require 'rubygems'
+require 'rake'
+require "bundler/gem_tasks"
 
-require "rubygems"
-require "hoe"
-
-# Hoe.plugin :compiler
-# Hoe.plugin :gem_prelude_sucks
-# Hoe.plugin :inline
-# Hoe.plugin :minitest
-# Hoe.plugin :racc
-# Hoe.plugin :rcov
-# Hoe.plugin :rdoc
-
-Hoe.spec "shopify_cli" do
-  # HEY! If you fill these out in ~/.hoe_template/default/Rakefile.erb then
-  # you'll never have to touch them again!
-  # (delete this comment too, of course)
-
-  # developer("FIX", "FIX@example.com")
-
-  # license "MIT" # this should match the license in the README
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/*_test.rb'
+  test.verbose = true
 end
 
-# vim: syntax=ruby
+begin
+  require 'rcov/rcovtask'
+  Rcov::RcovTask.new do |test|
+    test.libs << 'test'
+    test.pattern = 'test/**/*_test.rb'
+    test.verbose = true
+  end
+rescue LoadError
+  task :rcov do
+    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
+  end
+end
+
+
+task :default => :test
+
+require 'rdoc/task'
+Rake::RDocTask.new do |rdoc|
+  if File.exist?('VERSION.yml')
+    config = YAML.load(File.read('VERSION.yml'))
+    version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
+  else
+    version = ""
+  end
+
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title = "shopify_api #{version}"
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
