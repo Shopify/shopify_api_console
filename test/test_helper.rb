@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'test/unit'
+require 'minitest/autorun'
 require 'fakeweb'
 require 'mocha/setup'
 
@@ -10,6 +10,12 @@ require 'shopify_api'
 
 FakeWeb.allow_net_connect = false
 
+module Test
+  module Unit
+    class TestCase < MiniTest::Unit::TestCase
+    end
+  end
+end
 # setup ShopifyAPI with fake api_key and secret
 
 class Test::Unit::TestCase
