@@ -1,45 +1,42 @@
 = shopify_cli
 
-home  :: FIX (url)
-code  :: FIX (url)
-rdoc  :: FIX (url)
-bugs  :: FIX (url)
-... etc ...
+This package also includes the ``shopify-cli`` executable to make it easy to open up an interactive console to use the API with a shop.
 
-== DESCRIPTION:
+1. Obtain a private API key and password to use with your shop (step 2 in "Getting Started")
 
-FIX (describe your package)
+2. Use the ``shopify-cli`` script to save the credentials for the shop to quickly log in.
 
-== FEATURES/PROBLEMS:
+   ```bash
+   shopify-cli add yourshopname
+   ```
 
-* FIX (list of features or problems)
+   Follow the prompts for the shop domain, API key and password.
 
-== SYNOPSIS:
+3. Start the console for the connection.
 
-  FIX (code sample of usage)
+   ```bash
+   shopify-cli console
+   ```
 
-== REQUIREMENTS:
+4. To see the full list of commands, type:
 
-* FIX (list of requirements)
+   ```bash
+   shopify-cli help
+   ```
 
-== INSTALL:
+## Installation:
 
-* FIX (sudo gem install, anything else)
+`gem install shopify_cli`
 
-== DEVELOPERS:
+## Contributing
 
 After checking out the source, run:
 
-  $ rake newb
+  `$ bundle install && bundle exec rake test`
 
-This task will install any missing dependencies, run the tests/specs,
-and generate the RDoc.
+## License:
 
-== LICENSE:
-
-(The MIT License)
-
-Copyright (c) 2015 FIX
+Copyright (c) 2015 Shopify
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

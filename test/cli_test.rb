@@ -3,26 +3,27 @@ require 'shopify_cli/cli'
 require 'fileutils'
 
 class CliTest < Test::Unit::TestCase
+  HOME_DIR = File.expand_path(File.dirname(__FILE__))
+  TEST_HOME = File.join(HOME_DIR, 'files', 'home')
+  CONFIG_DIR = File.join(TEST_HOME, '.shopify', 'shops')
+  DEFAULT_SYMLINK = File.join(CONFIG_DIR, 'default')
+
   def setup
-    @test_home = File.join(File.expand_path(File.dirname(__FILE__)), 'files', 'home')
-    @shop_config_dir = File.join(@test_home, '.shopify', 'shops')
-    @default_symlink = File.join(@shop_config_dir, 'default')
-    `rm -rf #{@test_home}`
-    ENV['HOME'] = @test_home
+    force_remove(TEST_HOME)
+
+    ENV['HOME'] = TEST_HOME
     @cli = ShopifyCLI::Cli.new
 
-    FileUtils.mkdir_p(@shop_config_dir)
-    File.open(config_file('foo'), 'w') do |file|
-      file.puts valid_options.merge('domain' => 'foo.myshopify.com').to_yaml
-    end
-    File.symlink(config_file('foo'), @default_symlink)
-    File.open(config_file('bar'), 'w') do |file|
-      file.puts valid_options.merge('domain' => 'bar.myshopify.com').to_yaml
-    end
+    FileUtils.mkdir_p(CONFIG_DIR)
+    Dir.chdir(CONFIG_DIR)
+
+    add_config('foo', default: true, config: valid_options.merge(domain: 'foo.myshopify.com'))
+    add_config('bar', config: valid_options.merge(domain: 'bar.myshopify.com'))
   end
 
   def teardown
-    `rm -rf #{@test_home}`
+    Dir.chdir(HOME_DIR)
+    force_remove(TEST_HOME)
   end
 
   test "add with blank domain" do
@@ -39,7 +40,7 @@ class CliTest < Test::Unit::TestCase
     assert_equal 'pass', config['password']
     assert_equal 'pry', config['shell']
     assert_equal 'https', config['protocol']
-    assert_equal config_file('foo'), File.readlink(@default_symlink)
+    assert_equal config_file('foo'), File.readlink(DEFAULT_SYMLINK)
   end
 
   test "add with explicit domain" do
@@ -84,13 +85,13 @@ class CliTest < Test::Unit::TestCase
 
     @cli.default('bar')
 
-    assert_equal config_file('bar'), File.readlink(@default_symlink)
+    assert_equal config_file('bar'), File.readlink(DEFAULT_SYMLINK)
   end
 
   test "remove default connection" do
     @cli.remove('foo')
 
-    assert !File.exist?(@default_symlink)
+    assert !File.exist?(DEFAULT_SYMLINK)
     assert !File.exist?(config_file('foo'))
     assert File.exist?(config_file('bar'))
   end
@@ -98,7 +99,7 @@ class CliTest < Test::Unit::TestCase
   test "remove non-default connection" do
     @cli.remove('bar')
 
-    assert_equal config_file('foo'), File.readlink(@default_symlink)
+    assert_equal 'foo.yml', File.readlink(DEFAULT_SYMLINK)
     assert File.exist?(config_file('foo'))
     assert !File.exist?(config_file('bar'))
   end
@@ -110,15 +111,27 @@ class CliTest < Test::Unit::TestCase
   end
 
   def config_file(connection)
-    File.join(@shop_config_dir, "#{connection}.yml")
+    File.join(CONFIG_DIR, "#{connection}.yml")
+  end
+
+  def add_config(name, config: nil, default: false)
+    File.open("#{name}.yml", 'w') do |file|
+      file.puts config.to_yaml
+    end
+    File.symlink("#{name}.yml", DEFAULT_SYMLINK) if default
   end
 
   def standard_add_shop_prompts
-    `rm -rf #{@shop_config_dir}/*`
+    force_remove("#{CONFIG_DIR}/*")
+
     $stdout.expects(:print).with("Domain? (leave blank for foo.myshopify.com) ")
     $stdout.expects(:print).with("API key? ")
     $stdout.expects(:print).with("Password? ")
     $stdout.expects(:print).with("Would you like to use pry as your shell? (y/n) ")
+  end
+
+  def force_remove(pattern)
+    `rm -rf #{pattern}`
   end
 
 end
