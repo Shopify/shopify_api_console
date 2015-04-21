@@ -9,7 +9,7 @@ class CliTest < Test::Unit::TestCase
   DEFAULT_SYMLINK = File.join(CONFIG_DIR, 'default')
 
   def setup
-    `rm -rf #{TEST_HOME}`
+    force_remove(TEST_HOME)
 
     ENV['HOME'] = TEST_HOME
     @cli = ShopifyCLI::Cli.new
@@ -23,7 +23,7 @@ class CliTest < Test::Unit::TestCase
 
   def teardown
     Dir.chdir(HOME_DIR)
-    `rm -rf #{TEST_HOME}`
+    force_remove(TEST_HOME)
   end
 
   test "add with blank domain" do
@@ -122,11 +122,16 @@ class CliTest < Test::Unit::TestCase
   end
 
   def standard_add_shop_prompts
-    `rm -rf #{CONFIG_DIR}/*`
+    force_remove("#{CONFIG_DIR}/*")
+
     $stdout.expects(:print).with("Domain? (leave blank for foo.myshopify.com) ")
     $stdout.expects(:print).with("API key? ")
     $stdout.expects(:print).with("Password? ")
     $stdout.expects(:print).with("Would you like to use pry as your shell? (y/n) ")
+  end
+
+  def force_remove(pattern)
+    `rm -rf #{pattern}`
   end
 
 end
