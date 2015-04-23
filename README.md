@@ -1,4 +1,6 @@
-= shopify_cli
+#shopify_cli
+
+[![Build Status](https://travis-ci.org/Shopify/shopify_cli.svg?branch=master)](https://travis-ci.org/Shopify/shopify_cli)
 
 This package also includes the ``shopify-cli`` executable to make it easy to open up an interactive console to use the API with a shop.
 
