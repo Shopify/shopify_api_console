@@ -1,8 +1,7 @@
 require 'test_helper'
 require 'shopify_cli/cli'
 require 'fileutils'
-
-class CliTest < Test::Unit::TestCase
+class CliTest < Minitest::Test
   HOME_DIR = File.expand_path(File.dirname(__FILE__))
   TEST_HOME = File.join(HOME_DIR, 'files', 'home')
   CONFIG_DIR = File.join(TEST_HOME, '.shopify', 'shops')
