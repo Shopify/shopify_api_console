@@ -24,12 +24,14 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
 
   s.add_dependency("shopify_api")
+  s.add_dependency("activemodel", ">= 4.2.2")
+  s.add_dependency("activesupport", ">= 4.2.2")
   s.add_dependency("thor", "~> 0.18.1")
   s.add_dependency("pry", ">= 0.9.12.6")
 
   dev_dependencies = [['mocha', '>= 0.9.8'],
-                      ['fakeweb'], 
-                      ['minitest', '~> 4.0'],
+                      ['fakeweb'],
+                      ['minitest', '~> 5.0'],
                       ['rake']
   ]
 

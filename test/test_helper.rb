@@ -10,17 +10,11 @@ require 'shopify_api'
 
 FakeWeb.allow_net_connect = false
 
-module Test
-  module Unit
-    class TestCase < MiniTest::Unit::TestCase
-    end
-  end
-end
 # setup ShopifyAPI with fake api_key and secret
 
-class Test::Unit::TestCase
+class Minitest::Test
   def self.test(string, &block)
-    define_method("test:#{string}", &block)
+    define_method("test_#{string}", &block)
   end
 
   def self.should(string, &block)
