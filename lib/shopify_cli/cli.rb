@@ -106,6 +106,10 @@ module ShopifyCLI
       puts "using #{config['domain']}"
       ShopifyAPI::Base.site = site_from_config(config)
 
+      logger = Logger.new(STDOUT)
+      logger.level = Logger::WARN
+      ActiveResource::Base.logger = logger
+
       launch_shell(config)
     end
 
