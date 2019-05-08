@@ -31,6 +31,8 @@ module ShopifyCLI
         puts "\nopen https://#{config['domain']}/admin/apps/private in your browser to create a private app and get API credentials\n"
         config['api_key']  = ask("API key?")
         config['password'] = ask("Password?")
+        config['version']  = ask("API Version? (leave blank for '2019-04')")
+        config['version']   = "2019-04" if config['version'].blank?
         if ask("Would you like to use pry as your shell? (y/n)") === "y"
           config["shell"] = "pry"
         else
@@ -140,7 +142,9 @@ module ShopifyCLI
       api_key  = config['api_key']
       password = config['password']
       domain   = config['domain']
+      version   = config['version']
 
+      ShopifyAPI::Base.api_version = version
       ShopifyAPI::Base.site = "#{protocol}://#{api_key}:#{password}@#{domain}/admin"
     end
 
