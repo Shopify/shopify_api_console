@@ -1,8 +1,18 @@
-#shopify_cli
-
 [![Build Status](https://travis-ci.org/Shopify/shopify_cli.svg?branch=master)](https://travis-ci.org/Shopify/shopify_cli)
 
-This package also includes the ``shopify-cli`` executable to make it easy to open up an interactive console to use the API with a shop.
+This package includes the ``shopify-cli`` executable to make it easy to open up an interactive console to use the API with a shop.
+
+## Installation
+
+```sh
+gem install shopify_cli
+```
+
+# Usage
+
+See the documentation at https://help.shopify.com/en/api/guides/using-the-api-console
+
+# Getting started
 
 1. Obtain a private API key and password to use with your shop (step 2 in "Getting Started")
 
@@ -25,10 +35,6 @@ This package also includes the ``shopify-cli`` executable to make it easy to ope
    ```bash
    shopify-cli help
    ```
-
-## Installation:
-
-`gem install shopify_cli`
 
 ## Contributing
 
