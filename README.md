@@ -2,7 +2,7 @@
 
 This package includes the ``shopify-cli`` executable to make it easy to open up an interactive console to use the API with a shop.
 
-## Installation
+# Installation
 
 ```sh
 gem install shopify_cli
@@ -36,13 +36,13 @@ See the documentation at https://help.shopify.com/en/api/guides/using-the-api-co
    shopify-cli help
    ```
 
-## Contributing
+# Contributing
 
 After checking out the source, run:
 
   `$ bundle install && bundle exec rake test`
 
-## License:
+# License:
 
 Copyright (c) 2015 Shopify
 
