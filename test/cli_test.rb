@@ -27,7 +27,7 @@ class CliTest < Minitest::Test
 
   test "add with blank domain" do
     standard_add_shop_prompts
-    $stdin.expects(:gets).times(4).returns("", "key", "pass", "y")
+    $stdin.expects(:gets).times(5).returns("", "key", "pass", '', "y")
     @cli.expects(:puts).with("\nopen https://foo.myshopify.com/admin/apps/private in your browser to create a private app and get API credentials\n")
     @cli.expects(:puts).with("Default connection is foo")
 
@@ -44,7 +44,7 @@ class CliTest < Minitest::Test
 
   test "add with explicit domain" do
     standard_add_shop_prompts
-    $stdin.expects(:gets).times(4).returns("bar.myshopify.com", "key", "pass", "y")
+    $stdin.expects(:gets).times(5).returns("bar.myshopify.com", "key", "pass", "", "y")
     @cli.expects(:puts).with("\nopen https://bar.myshopify.com/admin/apps/private in your browser to create a private app and get API credentials\n")
     @cli.expects(:puts).with("Default connection is foo")
 
@@ -56,7 +56,7 @@ class CliTest < Minitest::Test
 
   test "add with irb as shell" do
     standard_add_shop_prompts
-    $stdin.expects(:gets).times(4).returns("bar.myshopify.com", "key", "pass", "fuuuuuuu")
+    $stdin.expects(:gets).times(5).returns("bar.myshopify.com", "key", "pass", '', "fuuuuuuu")
     @cli.expects(:puts).with("\nopen https://bar.myshopify.com/admin/apps/private in your browser to create a private app and get API credentials\n")
     @cli.expects(:puts).with("Default connection is foo")
 
@@ -127,6 +127,7 @@ class CliTest < Minitest::Test
     $stdout.expects(:print).with("API key? ")
     $stdout.expects(:print).with("Password? ")
     $stdout.expects(:print).with("Would you like to use pry as your shell? (y/n) ")
+    $stdout.expects(:print).with("API Version? (leave blank for '2019-04') ")
   end
 
   def force_remove(pattern)
