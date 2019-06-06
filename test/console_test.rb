@@ -1,7 +1,7 @@
 require 'test_helper'
-require 'shopify_cli/cli'
+require 'shopify_api_console/console'
 require 'fileutils'
-class CliTest < Minitest::Test
+class ConsoleTest < Minitest::Test
   HOME_DIR = File.expand_path(File.dirname(__FILE__))
   TEST_HOME = File.join(HOME_DIR, 'files', 'home')
   CONFIG_DIR = File.join(TEST_HOME, '.shopify', 'shops')
@@ -11,7 +11,7 @@ class CliTest < Minitest::Test
     force_remove(TEST_HOME)
 
     ENV['HOME'] = TEST_HOME
-    @cli = ShopifyCLI::Cli.new
+    @console = ShopifyAPIConsole::Console.new
 
     FileUtils.mkdir_p(CONFIG_DIR)
     Dir.chdir(CONFIG_DIR)
@@ -28,10 +28,10 @@ class CliTest < Minitest::Test
   test "add with blank domain" do
     standard_add_shop_prompts
     $stdin.expects(:gets).times(4).returns("", "key", "pass", "y")
-    @cli.expects(:puts).with("\nopen https://foo.myshopify.com/admin/apps/private in your browser to create a private app and get API credentials\n")
-    @cli.expects(:puts).with("Default connection is foo")
+    @console.expects(:puts).with("\nopen https://foo.myshopify.com/admin/apps/private in your browser to create a private app and get API credentials\n")
+    @console.expects(:puts).with("Default connection is foo")
 
-    @cli.add('foo')
+    @console.add('foo')
 
     config = YAML.load(File.read(config_file('foo')))
     assert_equal 'foo.myshopify.com', config['domain']
@@ -45,10 +45,10 @@ class CliTest < Minitest::Test
   test "add with explicit domain" do
     standard_add_shop_prompts
     $stdin.expects(:gets).times(4).returns("bar.myshopify.com", "key", "pass", "y")
-    @cli.expects(:puts).with("\nopen https://bar.myshopify.com/admin/apps/private in your browser to create a private app and get API credentials\n")
-    @cli.expects(:puts).with("Default connection is foo")
+    @console.expects(:puts).with("\nopen https://bar.myshopify.com/admin/apps/private in your browser to create a private app and get API credentials\n")
+    @console.expects(:puts).with("Default connection is foo")
 
-    @cli.add('foo')
+    @console.add('foo')
 
     config = YAML.load(File.read(config_file('foo')))
     assert_equal 'bar.myshopify.com', config['domain']
@@ -57,38 +57,38 @@ class CliTest < Minitest::Test
   test "add with irb as shell" do
     standard_add_shop_prompts
     $stdin.expects(:gets).times(4).returns("bar.myshopify.com", "key", "pass", "fuuuuuuu")
-    @cli.expects(:puts).with("\nopen https://bar.myshopify.com/admin/apps/private in your browser to create a private app and get API credentials\n")
-    @cli.expects(:puts).with("Default connection is foo")
+    @console.expects(:puts).with("\nopen https://bar.myshopify.com/admin/apps/private in your browser to create a private app and get API credentials\n")
+    @console.expects(:puts).with("Default connection is foo")
 
-    @cli.add('foo')
+    @console.add('foo')
 
     config = YAML.load(File.read(config_file('foo')))
     assert_equal 'irb', config['shell']
   end
 
   test "list" do
-    @cli.expects(:puts).with("   bar")
-    @cli.expects(:puts).with(" * foo")
+    @console.expects(:puts).with("   bar")
+    @console.expects(:puts).with(" * foo")
 
-    @cli.list
+    @console.list
   end
 
   test "show default" do
-    @cli.expects(:puts).with("Default connection is foo")
+    @console.expects(:puts).with("Default connection is foo")
 
-    @cli.default
+    @console.default
   end
 
   test "set default" do
-    @cli.expects(:puts).with("Default connection is bar")
+    @console.expects(:puts).with("Default connection is bar")
 
-    @cli.default('bar')
+    @console.default('bar')
 
     assert_equal config_file('bar'), File.readlink(DEFAULT_SYMLINK)
   end
 
   test "remove default connection" do
-    @cli.remove('foo')
+    @console.remove('foo')
 
     assert !File.exist?(DEFAULT_SYMLINK)
     assert !File.exist?(config_file('foo'))
@@ -96,7 +96,7 @@ class CliTest < Minitest::Test
   end
 
   test "remove non-default connection" do
-    @cli.remove('bar')
+    @console.remove('bar')
 
     assert_equal 'foo.yml', File.readlink(DEFAULT_SYMLINK)
     assert File.exist?(config_file('foo'))

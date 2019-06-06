@@ -1,12 +1,12 @@
 $:.push File.expand_path("../lib", __FILE__)
-require 'shopify_cli'
+require 'shopify_api_console'
 
 Gem::Specification.new do |s|
-  s.name = %q{shopify_cli}
-  s.version = ShopifyCLI::VERSION
+  s.name = %q{shopify_api_console}
+  s.version = ShopifyAPIConsole::VERSION
   s.author = "Shopify"
 
-  s.summary = %q{The Shopify CLI gem is a tool for accessing the Shopify admin REST web services from the console}
+  s.summary = %q{The Shopify Admin API Console gem is a tool for accessing the Shopify Admin API from the terminal}
   s.description = %q{}
   s.homepage = %q{https://github.com/Shopify/shopify_api_console_ruby}
 

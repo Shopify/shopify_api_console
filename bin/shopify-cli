@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-require File.expand_path('../../lib/shopify_cli',__FILE__)
-require File.expand_path('../../lib/shopify_cli/cli',__FILE__)
-ShopifyCLI::Cli.start(ARGV)
-

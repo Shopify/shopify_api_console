@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require File.expand_path('../../lib/shopify_api_console',__FILE__)
+require File.expand_path('../../lib/shopify_api_console/console',__FILE__)
+ShopifyAPIConsole::Console.start(ARGV)
+
