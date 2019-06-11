@@ -8,8 +8,7 @@ Gem::Specification.new do |s|
 
   s.summary = %q{The Shopify CLI gem is a tool for accessing the Shopify admin REST web services from the console}
   s.description = %q{}
-  s.email = %q{developers@shopify.com}
-  s.homepage = %q{http://www.shopify.com/partners/apps}
+  s.homepage = %q{https://github.com/Shopify/shopify_api_console_ruby}
 
   s.extra_rdoc_files = [
     "LICENSE",

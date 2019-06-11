@@ -1,3 +1,4 @@
 module ShopifyCLI
-  VERSION = "1.0.2"
+  VERSION = "1.0.3"
+  warn "[DEPRECATION] This gem has been renamed to shopify_api_console. Please switch to shopify_api_console v2+ as soon as possible."
 end

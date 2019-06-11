@@ -1,66 +1,15 @@
-[![Build Status](https://travis-ci.org/Shopify/shopify_cli.svg?branch=master)](https://travis-ci.org/Shopify/shopify_cli)
+# This gem has been renamed
 
-This package includes the ``shopify-cli`` executable to make it easy to open up an interactive console to use the API with a shop.
+* Name: shopify_cli --> shopify_api_console
+* GitHub: https://github.com/Shopify/shopify_cli --> https://github.com/Shopify/shopify_api_console_ruby
+* RubyGems: https://rubygems.org/gems/shopify_cli --> https://rubygems.org/gems/shopify_api_console_ruby
 
-# Installation
+shopify_cli 1.x will not be supported going forward. v1.0.3 will produce a deprecation warning.
 
-```sh
-gem install shopify_cli
+Starting with v2.0, the gem has been renamed to `shopify_api_console`. We recommend switching to shopify_api_console v2.0+ as soon as possible.
+
+1.x versions will continue to exist on [RubyGems](https://rubygems.org/gems/shopify_cli) and in the [GitHub releases](https://github.com/Shopify/shopify_cli/releases). If you _must_ use one of these releases, make sure to specify a version:
+
 ```
-
-# Usage
-
-See the documentation at https://help.shopify.com/en/api/guides/using-the-api-console
-
-# Getting started
-
-1. Obtain a private API key and password to use with your shop (step 2 in "Getting Started")
-
-2. Use the ``shopify-cli`` script to save the credentials for the shop to quickly log in.
-
-   ```bash
-   shopify-cli add yourshopname
-   ```
-
-   Follow the prompts for the shop domain, API key and password.
-
-3. Start the console for the connection.
-
-   ```bash
-   shopify-cli console
-   ```
-
-4. To see the full list of commands, type:
-
-   ```bash
-   shopify-cli help
-   ```
-
-# Contributing
-
-After checking out the source, run:
-
-  `$ bundle install && bundle exec rake test`
-
-# License:
-
-Copyright (c) 2015 Shopify
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+gem install shopify_cli -v v1.0.3
+```
