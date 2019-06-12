@@ -3,8 +3,8 @@ require 'abbrev'
 require 'yaml'
 require 'shopify_api'
 
-module ShopifyCLI
-  class Cli < Thor
+module ShopifyAPIConsole
+  class Console < Thor
     include Thor::Actions
 
     class ConfigFileError < StandardError

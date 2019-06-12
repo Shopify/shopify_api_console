@@ -1,8 +1,10 @@
+[![Build Status](https://travis-ci.org/Shopify/shopify_api_console_ruby.svg?branch=master)](https://travis-ci.org/Shopify/shopify_api_console_ruby)
+
 # This gem has been renamed
 
 * Name: shopify_cli --> shopify_api_console
 * GitHub: https://github.com/Shopify/shopify_cli --> https://github.com/Shopify/shopify_api_console_ruby
-* RubyGems: https://rubygems.org/gems/shopify_cli --> https://rubygems.org/gems/shopify_api_console_ruby
+* RubyGems: https://rubygems.org/gems/shopify_cli --> https://rubygems.org/gems/shopify_api_console
 
 shopify_cli 1.x will not be supported going forward. v1.0.3 will produce a deprecation warning.
 
@@ -13,3 +15,43 @@ Starting with v2.0, the gem has been renamed to `shopify_api_console`. We recomm
 ```
 gem install shopify_cli -v v1.0.3
 ```
+
+# Shopify API Console for Ruby
+
+This package includes the ``shopify-api`` executable to make it easy to open up an interactive console to use the Admin API with a shop.
+
+```sh
+gem install shopify_api_console
+```
+
+## Usage
+
+See the documentation at https://help.shopify.com/en/api/guides/using-the-api-console
+
+## Getting started
+
+1. Obtain a private API key and password to use with your shop (step 2 in "Getting Started")
+
+2. Use the ``shopify-api`` script to save the credentials for the shop to quickly log in.
+
+   ```bash
+   shopify-api add yourshopname
+   ```
+
+   Follow the prompts for the shop domain, API key and password.
+
+3. Start the console for the connection.
+
+   ```bash
+   shopify-api console
+   ```
+
+   ```bash
+   shopify-api help
+   ```
+
+## Contributing
+
+After checking out the source, run:
+
+  `$ bundle install && bundle exec rake test`
