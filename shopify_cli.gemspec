@@ -6,9 +6,9 @@ Gem::Specification.new do |s|
   s.version = ShopifyCLI::VERSION
   s.author = "Shopify"
 
-  s.summary = %q{The Shopify CLI gem is a tool for accessing the Shopify admin REST web services from the console}
+  s.summary = %q{Deprecated! Please use the `shopify_api_console` gem.}
   s.description = %q{}
-  s.homepage = %q{https://github.com/Shopify/shopify_api_console_ruby}
+  s.homepage = %q{https://github.com/Shopify/shopify_api_console}
 
   s.extra_rdoc_files = [
     "LICENSE",
