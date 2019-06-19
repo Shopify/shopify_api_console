@@ -2,6 +2,8 @@
 
 # This gem has been renamed
 
+#### If you're looking for the [Shopify App CLI](https://github.com/Shopify/shopify-app-cli/) you can find it [here](https://github.com/Shopify/shopify-app-cli/).
+
 * Name: shopify_cli --> shopify_api_console
 * GitHub: https://github.com/Shopify/shopify_cli --> https://github.com/Shopify/shopify_api_console
 * RubyGems: https://rubygems.org/gems/shopify_cli --> https://rubygems.org/gems/shopify_api_console
