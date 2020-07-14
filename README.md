@@ -1,4 +1,4 @@
-# This gem has been renamed
+# This gem has been renamed to shopify_api_console
 
 * Name: shopify_cli --> shopify_api_console
 * GitHub: https://github.com/Shopify/shopify_cli --> https://github.com/Shopify/shopify_api_console

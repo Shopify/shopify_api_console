@@ -6,11 +6,13 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    rake (13.0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  rake
   shopify_cli!
 
 BUNDLED WITH
