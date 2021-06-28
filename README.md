@@ -4,7 +4,7 @@
 
 # ⚠️ Important: This gem has been renamed
 
-#### If you're looking for the [Shopify App CLI](https://github.com/Shopify/shopify-app-cli/) you can find it [here](https://github.com/Shopify/shopify-app-cli/).
+#### If you're looking for **Shopify CLI**, refer to the [official docs](https://shopify.dev/apps/tools/cli) or [contribute on GitHub](https://github.com/Shopify/shopify-cli/).
 
 * Name: shopify_cli --> shopify_api_console
 * GitHub: https://github.com/Shopify/shopify_cli --> https://github.com/Shopify/shopify_api_console
@@ -38,7 +38,7 @@ Before you begin using the console, you'll need a few things:
 
 To become a Shopify Partner, [sign up for a free Shopify Partner account](https://www.shopify.com/partners).
 
-As a Shopify Partner, you gain access to the [Partner Dashboard](https://partners.shopify.com/organizations). From the Partner Dashboard, you can create development stores. For more information, refer to [Create a development store](https://shopify.dev/tutorials/create-a-development-store).
+As a Shopify Partner, you gain access to the [Partner Dashboard](https://partners.shopify.com/organizations). From the Partner Dashboard, you can [create a development store](https://shopify.dev/apps/tools/development-stores).
 
 Open up your development store and populate it with orders, customers, products — whatever you might need to properly develop your app.
 
@@ -46,7 +46,7 @@ Open up your development store and populate it with orders, customers, products 
 
 To access the Shopify API console, you need to create a dedicated private app in your development store with the permissions required to access resources. You'll use this private app's API credentials when setting up your Shopify API Console Ruby gem. Creating the private app generates its API key and password.
 
-For information on creating API keys for private apps, refer to [Generate API credentials](https://shopify.dev/tutorials/generate-api-credentials).
+Learn more about [creating API keys for private apps](https://shopify.dev/apps/auth/basic-http).
 
 ### Install the required gems
 
@@ -99,7 +99,7 @@ To make things easier, you can include the `ShopifyAPI` module provided by the S
 > include ShopifyAPI
 ```
 
-Now you can start to query the API and look at data from your store. Check out the [API docs](/docs/admin-api) to see what is queryable and mutable.
+Now you can start to query the API and look at data from your store. Check out the [API docs](https://shopify.dev/api/admin) to see what is queryable and mutable.
 
 To get a list of products, type `Product.all`:
 
@@ -140,9 +140,6 @@ Don’t forget to save the entry!
 
 You’ve now successfully added a customer to your dev store, and sent them an email invitation.
 
-> Tip:
-> To learn more about making requests from the Shopify API Console, see the [Active Resource README on GitHub](https://github.com/rails/activeresource#protocol).
-
 ## More complex calls
 
 ### Get a list of resources using query parameters
@@ -167,7 +164,6 @@ Add a description to an existing resource:
 > CustomCollection.find(7724148)
  => #<ShopifyAPI::CustomCollection:0x007fd47c5f1ba0 @attributes={"body_html"=>"Give the collection a new description", "handle"=>"frontpage", "id"=>7724148, "published_at"=>2012-07-06 17:57:28 UTC, "sort_order"=>"alpha-asc", "template_suffix"=>nil, "title"=>"Frontpage", "updated_at"=>2013-02-26 04:21:41 UTC}, @prefix_options={}>
 ```
-
 
 ## Troubleshooting
 
@@ -214,4 +210,4 @@ It didn’t work because the password is too short, and the email address is alr
 
 After checking out the source, run:
 
-  `$ bundle install && bundle exec rake test`
+`$ bundle install && bundle exec rake test`
