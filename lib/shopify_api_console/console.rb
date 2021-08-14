@@ -10,6 +10,8 @@ module ShopifyAPIConsole
     class ConfigFileError < StandardError
     end
 
+    SHOPIFY_API_RELEASE_MONTHS = [1, 4, 7, 10]
+
     desc "list", "list available connections"
     def list
       available_connections.each do |c|
@@ -31,6 +33,8 @@ module ShopifyAPIConsole
         puts "\nopen https://#{config['domain']}/admin/apps/private in your browser to create a private app and get API credentials\n"
         config['api_key']  = ask("API key?")
         config['password'] = ask("Password?")
+        config['api_version'] = ask("API version? Leave blank for the latest version")
+        config['api_version'] = shopify_api_latest_version if config['api_version'].blank?
         if ask("Would you like to use pry as your shell? (y/n)") === "y"
           config["shell"] = "pry"
         else
@@ -140,8 +144,10 @@ module ShopifyAPIConsole
       api_key  = config['api_key']
       password = config['password']
       domain   = config['domain']
+      api_version = config['api_version']
 
       ShopifyAPI::Base.site = "#{protocol}://#{api_key}:#{password}@#{domain}/admin"
+      ShopifyAPI::Base.api_version = api_version
     end
 
     def launch_shell(config)
@@ -178,6 +184,12 @@ module ShopifyAPIConsole
 
     def no_config_file_error(filename)
       raise ConfigFileError, "There is no config file at #{filename}"
+    end
+
+    def shopify_api_latest_version
+      quarter = 3
+      latest_released_month = SHOPIFY_API_RELEASE_MONTHS[(Time.now.month - 1)/ quarter]
+      Time.new(Time.now.year, latest_released_month).strftime("%Y-%m")
     end
   end
 end

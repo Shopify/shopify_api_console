@@ -74,6 +74,7 @@ Commands:
 ```
 
 You’re presented with options for setting up and managing connection configuration. Nothing is set up yet, so start by adding a connection. Name it whatever you like, but make sure that the URL matches up with that of your development store. You’ll be prompted to enter in your API key and password. Be sure to enter the API password, not secret.
+To learn more about Shopify API release schedule to find the API version, please read [Shopify API Versioning](https://shopify.dev/api/usage/versioning)
 
 ```sh
 $ shopify-api add myshopifystore
@@ -81,6 +82,7 @@ Domain? (leave blank for myshopifystore.myshopify.com) myshopifystore.myshopify.
 open https://myshopifystore.myshopify.com/admin/apps/private in your browser to get API credentials
 API key? [REDACTED]
 Password? [REDACTED]
+API version? Leave blank for the latest version
 create  .shopify/shops/myshopifystore.yml
 remove  .shopify/shops/default
 Default connection is myshopifystore
