@@ -55,27 +55,30 @@ class ConsoleTest < Minitest::Test
     assert_equal 'bar.myshopify.com', config['domain']
   end
 
-  test "add with blank api version should set latest api version last quarter release" do
-    api_released_month_by_current_month = {
-      1 => "01", 2 => "01", 3 => "01",
-      4 => "04", 5 => "04", 6 => "04",
-      7 => "07", 8 => "07", 9 => "07",
-      10 => "10", 11 => "10", 12 => "10",
+  test "add with blank api version should set latest api according to Shopify API supported versions" do
+    mock_response_body = {
+      "data": {
+        "publicApiVersions": [
+          { "handle": "2021-04", "supported": true },
+          { "handle": "2021-07", "supported": true },
+          { "handle": "2021-10", "supported": false }
+        ]
+      }
     }
+    stub_request(:post, "https://bar.myshopify.com/admin/api/graphql.json").
+      with(headers: {
+        "Content-Type": "application/graphql"
+     }).to_return(status: 200, body: JSON.generate(mock_response_body), headers: { content_type: 'application/json' })
 
-    api_released_month_by_current_month.each do |current_month, released_month|
-      Time.stub :now, Time.new(2021, current_month) do
-        standard_add_shop_prompts
-        $stdin.expects(:gets).times(5).returns("bar.myshopify.com", "key", "pass", "", "fuuuuuuu")
-        @console.expects(:puts).with("\nopen https://bar.myshopify.com/admin/apps/private in your browser to create a private app and get API credentials\n")
-        @console.expects(:puts).with("Default connection is foo")
-  
-        @console.add('foo')
-        config = YAML.load(File.read(config_file('foo')))
-  
-        assert_equal "2021-#{released_month}", config['api_version']
-      end
-    end
+    standard_add_shop_prompts
+    $stdin.expects(:gets).times(5).returns("bar.myshopify.com", "key", "pass", "", "fuuuuuuu")
+    @console.expects(:puts).with("\nopen https://bar.myshopify.com/admin/apps/private in your browser to create a private app and get API credentials\n")
+    @console.expects(:puts).with("Default connection is foo")
+
+    @console.add('foo')
+    config = YAML.load(File.read(config_file('foo')))
+
+    assert_equal "2021-07", config['api_version']
   end
 
   test "add with irb as shell" do

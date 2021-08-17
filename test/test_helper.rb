@@ -1,7 +1,9 @@
 require 'rubygems'
 require 'minitest/autorun'
 require 'fakeweb'
+require 'webmock/minitest'
 require 'mocha/setup'
+require 'json'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))

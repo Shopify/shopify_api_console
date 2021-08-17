@@ -2,6 +2,9 @@ require 'thor'
 require 'abbrev'
 require 'yaml'
 require 'shopify_api'
+require 'net/http'
+require 'uri'
+require 'json'
 
 module ShopifyAPIConsole
   class Console < Thor
@@ -9,8 +12,6 @@ module ShopifyAPIConsole
 
     class ConfigFileError < StandardError
     end
-
-    SHOPIFY_API_RELEASE_MONTHS = [1, 4, 7, 10]
 
     desc "list", "list available connections"
     def list
@@ -34,7 +35,7 @@ module ShopifyAPIConsole
         config['api_key']  = ask("API key?")
         config['password'] = ask("Password?")
         config['api_version'] = ask("API version? Leave blank for the latest version")
-        config['api_version'] = shopify_api_latest_version if config['api_version'].blank?
+        config['api_version'] = shopify_api_latest_version(config) if config['api_version'].blank?
         if ask("Would you like to use pry as your shell? (y/n)") === "y"
           config["shell"] = "pry"
         else
@@ -186,10 +187,39 @@ module ShopifyAPIConsole
       raise ConfigFileError, "There is no config file at #{filename}"
     end
 
-    def shopify_api_latest_version
-      quarter = 3
-      latest_released_month = SHOPIFY_API_RELEASE_MONTHS[(Time.now.month - 1)/ quarter]
-      Time.new(Time.now.year, latest_released_month).strftime("%Y-%m")
+    def shopify_api_latest_version(config)
+      public_versions = query_shopify_api_versions(config)
+      if public_versions.empty?
+        puts "\nCannot automatically set the latest Shopify API version. You need to specify it manually\n"
+      else
+        public_versions.select { |version| version["supported"] }.map { |version| version["handle"] }.sort.last
+      end
+    end
+    
+    def query_shopify_api_versions(config)
+      uri = URI.parse("https://#{config['domain']}/admin/api/graphql.json")
+      request = Net::HTTP::Post.new(uri)
+      request.content_type = "application/graphql"
+      request["X-Shopify-Access-Token"] = config['password'] 
+      request.body = "
+        {
+          publicApiVersions {
+            handle
+            supported
+            displayName
+          }
+        }
+      "
+
+      req_options = {
+        use_ssl: uri.scheme == "https",
+      }
+
+      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
+      end
+
+      response.code.to_i == 200 ? JSON.parse(response.body)["data"]["publicApiVersions"] : Array.new
     end
   end
 end
