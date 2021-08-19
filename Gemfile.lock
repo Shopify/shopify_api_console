@@ -26,14 +26,19 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     builder (3.2.3)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
+    crack (0.4.5)
+      rexml
     fakeweb (1.3.0)
-    graphql (1.9.6)
-    graphql-client (0.14.0)
-      activesupport (>= 3.0, < 6.0)
-      graphql (~> 1.6)
+    graphql (1.12.14)
+    graphql-client (0.16.0)
+      activesupport (>= 3.0)
+      graphql (~> 1.8)
+    hashdiff (1.0.1)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     metaclass (0.0.4)
@@ -44,9 +49,11 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    public_suffix (4.0.6)
     rack (2.0.7)
     rake (10.4.2)
-    shopify_api (7.0.1)
+    rexml (3.2.5)
+    shopify_api (9.4.1)
       activeresource (>= 4.1.0, < 6.0.0)
       graphql-client
       rack
@@ -54,6 +61,10 @@ GEM
     thread_safe (0.3.6)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    webmock (3.14.0)
+      addressable (>= 2.8.0)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
 
 PLATFORMS
   ruby
@@ -64,6 +75,7 @@ DEPENDENCIES
   mocha (>= 0.9.8)
   rake
   shopify_api_console!
+  webmock
 
 BUNDLED WITH
    2.2.22
