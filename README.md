@@ -2,7 +2,10 @@
 
 [![Build Status](https://travis-ci.org/Shopify/shopify_api_console.svg?branch=master)](https://travis-ci.org/Shopify/shopify_api_console)
 
-# ⚠️ Important: This gem has been renamed
+## ⚠️ Important:
+
+* As of August 2021, this gem is no longer maintained and the repository has been archived. You can still fork this repo if you want to make modifications to it.
+* This gem was renamed in June 2019. It was named `shopify_cli` previously.
 
 #### If you're looking for **Shopify CLI**, refer to the [official docs](https://shopify.dev/apps/tools/cli) or [contribute on GitHub](https://github.com/Shopify/shopify-cli/).
 
