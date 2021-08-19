@@ -4,8 +4,8 @@
 
 ## ⚠️ Important:
 
-* This gem is no longer maintained by Shopify.
-* This gem has been renamed. It was named `shopify_cli` previously.
+* As of August 2021, this gem is no longer maintained. Feel free to fork this repo if you want to make modifications to it.
+* This gem was renamed in June 2019. It was named `shopify_cli` previously.
 
 #### If you're looking for **Shopify CLI**, refer to the [official docs](https://shopify.dev/apps/tools/cli) or [contribute on GitHub](https://github.com/Shopify/shopify-cli/).
 
